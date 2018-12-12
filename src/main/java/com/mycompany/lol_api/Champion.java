@@ -1,4 +1,4 @@
-package lolapi;
+package com.mycompany.lol_api;
 
 public class Champion {
     

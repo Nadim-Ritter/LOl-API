@@ -1,4 +1,4 @@
-package lolapi;
+package com.mycompany.lol_api;
 
 import java.util.ArrayList;
 import java.util.List;

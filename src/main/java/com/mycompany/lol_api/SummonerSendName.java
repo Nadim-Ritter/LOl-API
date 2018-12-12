@@ -1,4 +1,4 @@
-package lolapi;
+package com.mycompany.lol_api;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

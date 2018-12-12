@@ -11,7 +11,11 @@
         
         <style>
             .imgStyle{
-                width: 5%;
+                width: 15%;
+            }
+            
+            .table{
+                width: 50%;
             }
             
             
@@ -22,14 +26,20 @@
 
         
         <h:form>
-            <h:commandButton action="#{GetApiData.getChmapionData()}">get champion</h:commandButton>     
+            <h:commandButton action="#{GetApiData.getChampionData()}">get champion</h:commandButton>     
         </h:form>
         
-        <h:dataTable value="#{GetApiData.championsList}" var="champion" styleClass="table"> 
+        <h:dataTable value="#{GetApiData.championsList}" var="champion" styleClass="table .table-sm"> 
             <h:column>
                 <f:facet name="header">Champion Image</f:facet> 
-                <h:graphicImage styleClass="imgStyle" value="#{champion.imgUrl}"/>
+                <h:form>
+                    <h:commandLink action="championSingle.xhtml">
+                        <f:actionListener binding="#{GetApiData.setSingelChampionData(champion.name)}"/>
+                        <h:graphicImage styleClass="imgStyle" value="#{champion.imgUrl}"/>
+                    </h:commandLink>   
+                </h:form>
             </h:column>
+            
             <h:column>
                 <f:facet name="header">Name</f:facet> 
                 #{champion.name}

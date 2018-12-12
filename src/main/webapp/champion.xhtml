@@ -9,15 +9,35 @@
         
         <title>Champion</title>
         
+        <style>
+            .imgStyle{
+                width: 5%;
+            }
+            
+            
+        </style>
+        
     </h:head>
     <h:body>        
 
         
         <h:form>
-            
-         <h:commandButton action="#{GetApiData.getChmapionData()}">get champion</h:commandButton>   
-            
+            <h:commandButton action="#{GetApiData.getChmapionData()}">get champion</h:commandButton>     
         </h:form>
+        
+        <h:dataTable value="#{GetApiData.championsList}" var="champion" styleClass="table"> 
+            <h:column>
+                <f:facet name="header">Champion Image</f:facet> 
+                <h:graphicImage styleClass="imgStyle" value="#{champion.imgUrl}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet> 
+                #{champion.name}
+            </h:column>
+         </h:dataTable>
+             
+        
+        
         
 
         

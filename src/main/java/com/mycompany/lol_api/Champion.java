@@ -2,63 +2,97 @@ package com.mycompany.lol_api;
 
 public class Champion {
     
-    private String version;
-    private String id;
-    private String key;
+    private String imgUrl;
     private String name;
     private String title;
     private String blurb;
-    
-    
-    
-//    
-//    
-//info	
-//attack	8
-//defense	4
-//magic	3
-//difficulty	4
-//
-//
-//image	
-//full	"Aatrox.png"
-//sprite	"champion0.png"
-//group	"champion"
-//x	0
-//y	0
-//w	48
-//h	
-//        
-//tags	
-//0	"Fighter"
-//1	"Tank"
-//
-//partype	"BloodWell"
-//
-//stats	
-//hp	537.8
-//hpperlevel	85
-//mp	105.6
-//mpperlevel	45
-//movespeed	345
-//armor	24.384
-//armorperlevel	3.8
-//spellblock	32.1
-//spellblockperlevel	1.25
-//attackrange	150
-//hpregen	6.59
-//hpregenperlevel	0.5
-//mpregen	0
-//mpregenperlevel	0
-//crit	0
-//critperlevel	0
-//attackdamage	60.376
-//attackdamageperlevel	3.2
-//attackspeedoffset	-0.04
-//attackspeedperlevel	3
+    private int attack;
+    private int defense;
+    private int magic;
+    private int difficulty;
+   
 
     public Champion(){
         
     }
+
+    public Champion(String imgUrl, String name, String title, String blurb, int attack, int defense, int magic, int difficulty) {
+        this.imgUrl = imgUrl;
+        this.name = name;
+        this.title = title;
+        this.blurb = blurb;
+        this.attack = attack;
+        this.defense = defense;
+        this.magic = magic;
+        this.difficulty = difficulty;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getBlurb() {
+        return blurb;
+    }
+
+    public void setBlurb(String blurb) {
+        this.blurb = blurb;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public int getMagic() {
+        return magic;
+    }
+
+    public void setMagic(int magic) {
+        this.magic = magic;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+    
+    
+    
+    
 
 }

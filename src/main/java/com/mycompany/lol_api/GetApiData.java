@@ -25,11 +25,11 @@ public class GetApiData {
     private List<Summoner> summonersList = new ArrayList();
     private List<Champion> championsList = new ArrayList();
     private Champion currentChampion;
-    
+    String apiKey = "RGAPI-0201a899-c915-4482-84df-5a9c03c1b8c1";
 
     public void getSummonersData(String name) throws MalformedURLException, IOException {
 
-        String apiKey = "RGAPI-c410d722-2146-4e29-b4e6-e546101dae20";
+        
         String url = "https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name + "?api_key=" + apiKey;
 
         URL obj = new URL(url);
@@ -68,7 +68,6 @@ public class GetApiData {
         //http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg
         //https://developer.riotgames.com/static-data.html
         //https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getAllChampionMasteries
-        String apiKey = "RGAPI-c410d722-2146-4e29-b4e6-e546101dae20";
         String championData = "http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json";
 
         URL obj = new URL(championData);

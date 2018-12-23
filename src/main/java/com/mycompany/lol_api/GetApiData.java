@@ -25,41 +25,44 @@ public class GetApiData {
     private List<Summoner> summonersList = new ArrayList();
     private List<Champion> championsList = new ArrayList();
     private Champion currentChampion;
-    String apiKey = "RGAPI-0201a899-c915-4482-84df-5a9c03c1b8c1";
+    String apiKey = "RGAPI-5664713e-5b38-4d6a-b011-b3d55c9dbeb3";
 
     public void getSummonersData(String name) throws MalformedURLException, IOException {
 
-        
-        String url = "https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name + "?api_key=" + apiKey;
+        if (!name.equals("")) {
+            System.out.println("---------------test");
+            
+            String url = "https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name + "?api_key=" + apiKey;
 
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-        // optional default is GET
-        con.setRequestMethod("GET");
+            // optional default is GET
+            con.setRequestMethod("GET");
 
-        //add request header
-        con.setRequestProperty("User-Agent", USER_AGENT);
+            //add request header
+            con.setRequestProperty("User-Agent", USER_AGENT);
 
-        int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+            int responseCode = con.getResponseCode();
+            System.out.println("\nSending 'GET' request to URL : " + url);
+            System.out.println("Response Code : " + responseCode);
 
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
 
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            Gson gson = new Gson();
+
+            Summoner summoner = gson.fromJson(response.toString(), Summoner.class);
+
+            summonersList.add(summoner);
         }
-        in.close();
-
-        Gson gson = new Gson();
-
-        Summoner summoner = gson.fromJson(response.toString(), Summoner.class);
-
-        summonersList.add(summoner);
 
     }
 
@@ -92,11 +95,11 @@ public class GetApiData {
             response.append(inputLine);
         }
         in.close();
-        
+
         //System.out.println("-----------" + championsJson.getJSONObject("data").getJSONObject("Akali"));
         //get champion names
         List<String> championNames = new ArrayList();
-        
+
         JSONObject championsJson = new JSONObject(response.toString());
 
         for (Object key : championsJson.getJSONObject("data").keySet()) {
@@ -109,31 +112,27 @@ public class GetApiData {
             championNames.add(keyStr);
             //displayPictures(keyStr);
         }
-        
+
         //load champion data into arraylist
-        for(int i = 0; i < championNames.size(); i++){
+        for (int i = 0; i < championNames.size(); i++) {
             Champion champ = new Champion("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/" + championNames.get(i) + "_0.jpg", championNames.get(i), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getString("title"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getString("blurb"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getJSONObject("info").getInt("attack"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getJSONObject("info").getInt("defense"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getJSONObject("info").getInt("magic"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getJSONObject("info").getInt("difficulty"));
             championsList.add(champ);
         }
 
-        
     }
 
-    public void setSingelChampionData(String name) throws MalformedURLException, IOException{
-        
-        for(int i = 0; i < championsList.size(); i++){
-            if(championsList.get(i).getName().equals(name)){
+    public void setSingelChampionData(String name) throws MalformedURLException, IOException {
+
+        for (int i = 0; i < championsList.size(); i++) {
+            if (championsList.get(i).getName().equals(name)) {
                 currentChampion = championsList.get(i);
             }
         }
-        
+
         System.out.println(":::::::::::::::::::::::" + currentChampion.getName());
 
-    }    
-    
-    
-    
-    
+    }
+
     public List<Summoner> getSummonersList() {
         return summonersList;
     }
@@ -157,13 +156,5 @@ public class GetApiData {
     public void setCurrentChampion(Champion currentChampion) {
         this.currentChampion = currentChampion;
     }
-
-    
-    
-    
-
-    
-    
-    
 
 }

@@ -1,0 +1,14 @@
+LOL-API
+
+League of Legends ist eine Online Multiplayer Spiel.
+Durch die API von League of Legends kann man Daten zu einem Account, einem laufenden Spiel oder von den Champions beziehen.
+
+Um die API benutzen zu können, ist ein Key nötig.
+Der Key, der im File "GetApiData.java" abgespeichert ist, ist noch bis am 24. Dezember 11.40 gültig.
+Um einen neuen zu generieren muss man sich einloggen: https://developer.riotgames.com/
+
+Auf der Startseite kann man die Daten von einem Account beziehen.
+Beispiele: TheFireOfSmaug, BlueScoreMan
+
+Auf der seite "Champion.xhtml" werden alle Champions des Spiels aufgelistet. 
+Durch ancklicken der Bilder werden noch mehr Informationen des jeweiligen Champions angezeigt.

@@ -25,7 +25,7 @@ public class GetApiData {
     private List<Summoner> summonersList = new ArrayList();
     private List<Champion> championsList = new ArrayList();
     private Champion currentChampion;
-    String apiKey = "RGAPI-5664713e-5b38-4d6a-b011-b3d55c9dbeb3";
+    String apiKey = "RGAPI-294dfb06-a54c-481b-8db8-ae811e88fca3";
 
     public void getSummonersData(String name) throws MalformedURLException, IOException {
 

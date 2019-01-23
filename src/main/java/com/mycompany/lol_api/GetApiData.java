@@ -24,15 +24,16 @@ public class GetApiData {
 
     private List<Summoner> summonersList = new ArrayList();
     private List<Champion> championsList = new ArrayList();
+    private List<Long> gameIdList = new ArrayList();
+    private List<MatchSingle> matchesList = new ArrayList();
     private Champion currentChampion;
-    String apiKey = "RGAPI-294dfb06-a54c-481b-8db8-ae811e88fca3";
+    private Summoner currentSummoner;
+    String apiKey = "RGAPI-3ef362f5-90af-4387-8d78-40e37dafed14";
 
     public void getSummonersData(String name) throws MalformedURLException, IOException {
 
         if (!name.equals("")) {
-            System.out.println("---------------test");
-            
-            String url = "https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + name + "?api_key=" + apiKey;
+            String url = "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + name + "?api_key=" + apiKey;
 
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -129,8 +130,106 @@ public class GetApiData {
             }
         }
 
-        System.out.println(":::::::::::::::::::::::" + currentChampion.getName());
+    }
 
+    public void getMatches(Summoner currentSummoner) throws IOException {
+        String accountID = currentSummoner.getAccountId();
+        String url = "https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/" + accountID + "?api_key=" + apiKey;
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // optional default is GET
+        con.setRequestMethod("GET");
+
+        //add request header
+        con.setRequestProperty("User-Agent", USER_AGENT);
+
+        int responseCode = con.getResponseCode();
+        System.out.println("\nSending 'GET' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        JSONObject matchesList = new JSONObject(response.toString());
+
+        for (int i = 0; i < matchesList.getJSONArray("matches").length(); i++) {
+            JSONObject singleMatch = new JSONObject(matchesList.getJSONArray("matches").get(i).toString());
+            gameIdList.add(singleMatch.getLong("gameId"));
+        }
+    }
+
+    public void getSingleMatchDetails() throws MalformedURLException, IOException {
+        for (int i = 0; i < 10; i++) {
+            String url = "https://euw1.api.riotgames.com/lol/match/v4/matches/" + gameIdList.get(i) + "?api_key=" + apiKey;
+
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+            // optional default is GET
+            con.setRequestMethod("GET");
+
+            //add request header
+            con.setRequestProperty("User-Agent", USER_AGENT);
+
+            int responseCode = con.getResponseCode();
+            System.out.println("\nSending 'GET' request to URL : " + url);
+            System.out.println("Response Code : " + responseCode);
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            JSONObject matchesListDetails = new JSONObject(response.toString());
+            List<Player> players = new ArrayList();
+            
+            for(int y = 0; y < matchesListDetails.getJSONArray("participants").length(); y++){
+                JSONObject participants = new JSONObject(matchesListDetails.getJSONArray("participants").get(y).toString());
+                JSONObject participantIdentities = new JSONObject(matchesListDetails.getJSONArray("participantIdentities").get(y).toString());
+                
+                Player player = new Player(participants.getJSONObject("stats").getInt("kills"), participantIdentities.getJSONObject("player").getString("summonerName"), participants.getInt("championId"), participants.getInt("teamId"));
+                players.add(player);
+            }
+  
+            String teamWin;
+            
+            JSONObject team0 = new JSONObject(matchesListDetails.getJSONArray("teams").getJSONObject(0).toString());
+            
+            if(team0.getString("win").equals("Win")){
+                teamWin = "team0";
+            }else{
+                teamWin = "team1";
+            }
+            
+            int killsTeam0 = 0;
+            int killsTeam1 = 0;
+            
+            for(int x = 0; x < players.size(); x++){
+                if(players.get(x).getTeamId() == 100){
+                    killsTeam0 += players.get(x).getKills();
+                }else{
+                    killsTeam1 += players.get(x).getKills();
+                }
+            }
+            
+            MatchSingle match = new MatchSingle(matchesListDetails.getInt("gameDuration"), matchesListDetails.getString("gameMode"), matchesListDetails.getString("gameType"), teamWin, killsTeam0, killsTeam1, players);
+            
+            matchesList.add(match);
+        }    
     }
 
     public List<Summoner> getSummonersList() {
@@ -156,5 +255,31 @@ public class GetApiData {
     public void setCurrentChampion(Champion currentChampion) {
         this.currentChampion = currentChampion;
     }
+
+    public Summoner getCurrentSummoner() {
+        return currentSummoner;
+    }
+
+    public void setCurrentSummoner(Summoner currentSummoner) {
+        this.currentSummoner = currentSummoner;
+    }
+
+    public List<Long> getGameIdList() {
+        return gameIdList;
+    }
+
+    public void setGameIdList(List<Long> gameIdList) {
+        this.gameIdList = gameIdList;
+    }
+
+    public List<MatchSingle> getMatchesList() {
+        return matchesList;
+    }
+
+    public void setMatchesList(List<MatchSingle> matchesList) {
+        this.matchesList = matchesList;
+    }
+    
+    
 
 }

@@ -1,40 +1,47 @@
 package com.mycompany.lol_api;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-
 public class Summoner {
     
-    private int id;
-    private long accountId;
+    private String id;
+    private String accountId;
+    private String puuid;
     private String name;
     private int profileIconId;
     private long revisionDate;
     private int summonerLevel;
 
-    public Summoner(int id, long accountId, String name, int profileIconId, long revisionDate, int summonerLevel) {
+    public Summoner(String id, String accountId, String puuid, String name, int profileIconId, long revisionDate, int summonerLevel) {
         this.id = id;
         this.accountId = accountId;
+        this.puuid = puuid;
         this.name = name;
         this.profileIconId = profileIconId;
         this.revisionDate = revisionDate;
         this.summonerLevel = summonerLevel;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public long getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    public String getPuuid() {
+        return puuid;
+    }
+
+    public void setPuuid(String puuid) {
+        this.puuid = puuid;
     }
 
     public String getName() {
@@ -68,6 +75,10 @@ public class Summoner {
     public void setSummonerLevel(int summonerLevel) {
         this.summonerLevel = summonerLevel;
     }
+    
+    
+
+
     
     
 

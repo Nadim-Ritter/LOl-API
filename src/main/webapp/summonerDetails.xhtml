@@ -2,7 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
@@ -43,13 +45,49 @@
                 </ul>
             </div>
         </nav>
-        
-        <h:form>
-            <h:commandButton action="#{GetApiData.getSingleMatchDetails()}"/>
-        </h:form>
-        
-        
-        
-        
+
+        <h:dataTable value="#{GetApiData.matchesList}" var="match" styleClass="table">
+            <h:column>
+                <div>
+                    <h:outputText styleClass="font-weight-bold" value="Victory" rendered="#{match.win eq 'team0'}"/>
+                    <h:outputText styleClass="font-weight-bold" value="Defeat" rendered="#{match.defeat eq 'team0'}"/>
+                </div>
+                
+                <div>
+                    <h:outputText value="#{match.killsTeam0}"/>
+                </div>
+
+                <ui:repeat value="#{match.players}" var="player">
+                    <div>
+                        <h:outputText value="#{player.name}" rendered="#{player.teamId == 100}"/>
+                    </div>
+                </ui:repeat>
+
+            </h:column>
+
+            <h:column>
+                <div>
+                    <h:outputText styleClass="font-weight-bold" value="Victory" rendered="#{match.win eq 'team1'}"/>
+                    <h:outputText styleClass="font-weight-bold" value="Defeat" rendered="#{match.defeat eq 'team1'}"/>
+                </div>
+                
+                <div>
+                    <h:outputText value="#{match.killsTeam1}"/>
+                </div>
+  
+                <ui:repeat value="#{match.players}" var="player">
+                    <div>
+                        <h:outputText value="#{player.name}" rendered="#{player.teamId == 200}"/>
+                    </div>
+                </ui:repeat>
+            </h:column>
+
+
+
+        </h:dataTable>
+
+
+
+
     </h:body>
 </html>

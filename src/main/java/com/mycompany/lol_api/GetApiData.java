@@ -206,13 +206,16 @@ public class GetApiData {
             }
   
             String teamWin;
+            String teamDefeat;
             
             JSONObject team0 = new JSONObject(matchesListDetails.getJSONArray("teams").getJSONObject(0).toString());
             
             if(team0.getString("win").equals("Win")){
                 teamWin = "team0";
+                teamDefeat = "team1";
             }else{
                 teamWin = "team1";
+                teamDefeat = "team0";
             }
             
             int killsTeam0 = 0;
@@ -226,7 +229,7 @@ public class GetApiData {
                 }
             }
             
-            MatchSingle match = new MatchSingle(matchesListDetails.getInt("gameDuration"), matchesListDetails.getString("gameMode"), matchesListDetails.getString("gameType"), teamWin, killsTeam0, killsTeam1, players);
+            MatchSingle match = new MatchSingle(matchesListDetails.getInt("gameDuration"), matchesListDetails.getString("gameMode"), matchesListDetails.getString("gameType"), teamWin, teamDefeat, killsTeam0, killsTeam1, players);
             
             matchesList.add(match);
         }    
@@ -279,6 +282,8 @@ public class GetApiData {
     public void setMatchesList(List<MatchSingle> matchesList) {
         this.matchesList = matchesList;
     }
+    
+    
     
     
 

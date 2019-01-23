@@ -115,15 +115,11 @@
                     <h:commandLink styleClass="btn btn-primary" action="summonerDetails.xhtml" value="Details">
                         <f:actionListener binding="#{GetApiData.setCurrentSummoner(summoner)}"/>
                         <f:actionListener binding="#{GetApiData.getMatches(GetApiData.currentSummoner)}"/>
+                        <f:actionListener binding="#{GetApiData.getSingleMatchDetails()}" />
                     </h:commandLink>
                 </h:form>
             </h:column>
         </h:dataTable>
-
-
-
-
-
 
     </h:body>
 </html>

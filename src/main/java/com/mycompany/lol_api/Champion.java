@@ -10,13 +10,14 @@ public class Champion {
     private int defense;
     private int magic;
     private int difficulty;
+    private int key;
    
 
     public Champion(){
         
     }
 
-    public Champion(String imgUrl, String name, String title, String blurb, int attack, int defense, int magic, int difficulty) {
+    public Champion(String imgUrl, String name, String title, String blurb, int attack, int defense, int magic, int difficulty, int key) {
         this.imgUrl = imgUrl;
         this.name = name;
         this.title = title;
@@ -25,7 +26,10 @@ public class Champion {
         this.defense = defense;
         this.magic = magic;
         this.difficulty = difficulty;
+        this.key = key;
     }
+
+   
 
     public String getImgUrl() {
         return imgUrl;
@@ -90,6 +94,15 @@ public class Champion {
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
+    }
+    
     
     
     

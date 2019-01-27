@@ -8,7 +8,7 @@
     <h:head>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
-
+        <meta charset="utf-8"/>
         <title>LOL API</title>
 
         <style>
@@ -21,6 +21,10 @@
                 outline: none;
                 box-shadow: none;
             }
+            .imgStyle{
+                width: 20%;
+            }
+
 
         </style>
 
@@ -52,34 +56,58 @@
                     <h:outputText styleClass="font-weight-bold" value="Victory" rendered="#{match.win eq 'team0'}"/>
                     <h:outputText styleClass="font-weight-bold" value="Defeat" rendered="#{match.defeat eq 'team0'}"/>
                 </div>
-                
+
                 <div>
                     <h:outputText value="#{match.killsTeam0}"/>
                 </div>
-
-                <ui:repeat value="#{match.players}" var="player">
-                    <div>
-                        <h:outputText value="#{player.name}" rendered="#{player.teamId == 100}"/>
-                    </div>
-                </ui:repeat>
-
+                
+                <h:dataTable value="#{match.playersTeam1}" var="player">
+                    <h:column>
+                        <h:outputText value="#{player.name}: "/>
+                    </h:column>
+                    
+                    <h:column>
+                        <h:outputText value="#{player.kills} "/>
+                    </h:column>
+                    
+                    <h:column>
+                        <h:graphicImage styleClass="imgStyle" value="#{GetApiData.getImgUrl(player.championId)}"/>
+                    </h:column>
+                </h:dataTable>
             </h:column>
 
+            <h:column>
+                <div>
+                    <h:outputText value="#{match.gameMode}"/>
+                </div>
+                <div>
+                    <h:outputText value="#{match.gameType}"/>
+                </div>
+            </h:column>
+            
             <h:column>
                 <div>
                     <h:outputText styleClass="font-weight-bold" value="Victory" rendered="#{match.win eq 'team1'}"/>
                     <h:outputText styleClass="font-weight-bold" value="Defeat" rendered="#{match.defeat eq 'team1'}"/>
                 </div>
-                
+
                 <div>
                     <h:outputText value="#{match.killsTeam1}"/>
                 </div>
-  
-                <ui:repeat value="#{match.players}" var="player">
-                    <div>
-                        <h:outputText value="#{player.name}" rendered="#{player.teamId == 200}"/>
-                    </div>
-                </ui:repeat>
+
+                <h:dataTable value="#{match.playersTeam2}" var="player">
+                    <h:column>
+                        <h:outputText value="#{player.name}: "/>
+                    </h:column>
+                    
+                    <h:column>
+                        <h:outputText value="#{player.kills} "/>
+                    </h:column>
+                    
+                    <h:column>
+                        <h:graphicImage styleClass="imgStyle" value="#{GetApiData.getImgUrl(player.championId)}"/>
+                    </h:column>
+                </h:dataTable>
             </h:column>
 
 

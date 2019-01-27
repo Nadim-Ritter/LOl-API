@@ -11,9 +11,10 @@ public class MatchSingle {
     private String defeat;
     private int killsTeam0;
     private int killsTeam1;
-    private List<Player> players;
+    private List<Player> playersTeam1;
+    private List<Player> playersTeam2;
 
-    public MatchSingle(int gameDuration, String gameMode, String gameType, String win, String defeat, int killsTeam0, int killsTeam1, List<Player> players) {
+    public MatchSingle(int gameDuration, String gameMode, String gameType, String win, String defeat, int killsTeam0, int killsTeam1, List<Player> playersTeam1, List<Player> playersTeam2) {
         this.gameDuration = gameDuration;
         this.gameMode = gameMode;
         this.gameType = gameType;
@@ -21,9 +22,10 @@ public class MatchSingle {
         this.defeat = defeat;
         this.killsTeam0 = killsTeam0;
         this.killsTeam1 = killsTeam1;
-        this.players = players;
+        this.playersTeam1 = playersTeam1;
+        this.playersTeam2 = playersTeam2;
     }
-
+    
     public int getGameDuration() {
         return gameDuration;
     }
@@ -72,14 +74,6 @@ public class MatchSingle {
         this.killsTeam1 = killsTeam1;
     }
 
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
-    }
-
     public String getDefeat() {
         return defeat;
     }
@@ -87,6 +81,24 @@ public class MatchSingle {
     public void setDefeat(String defeat) {
         this.defeat = defeat;
     }
+
+    public List<Player> getPlayersTeam1() {
+        return playersTeam1;
+    }
+
+    public void setPlayersTeam1(List<Player> playersTeam1) {
+        this.playersTeam1 = playersTeam1;
+    }
+
+    public List<Player> getPlayersTeam2() {
+        return playersTeam2;
+    }
+
+    public void setPlayersTeam2(List<Player> playersTeam2) {
+        this.playersTeam2 = playersTeam2;
+    }
+    
+    
     
     
     

@@ -7,7 +7,7 @@
     <h:head>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
-
+        <meta charset="utf-8"/>
         <title>LOL API</title>
 
         <style>
@@ -68,10 +68,10 @@
                                     <h:commandButton styleClass="btn btn-lg btn-success" action="#{GetApiData.getSummonersData(SummonerSendName.name)}" value="Submit"/>
                                     <!--<button class="btn btn-lg btn-success" type="submit">Search</button>-->
                                 </div>
-                            </h:form>
+                            </h:form>   
                             <!--end of col-->
                         </div>
-                    </form>
+                    </form>             
                 </div>
                 <!--end of col-->
             </div>
@@ -116,6 +116,7 @@
                         <f:actionListener binding="#{GetApiData.setCurrentSummoner(summoner)}"/>
                         <f:actionListener binding="#{GetApiData.getMatches(GetApiData.currentSummoner)}"/>
                         <f:actionListener binding="#{GetApiData.getSingleMatchDetails()}" />
+                        <f:actionListener binding="#{GetApiData.getChampionData()}" />
                     </h:commandLink>
                 </h:form>
             </h:column>

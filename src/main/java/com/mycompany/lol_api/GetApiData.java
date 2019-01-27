@@ -28,7 +28,7 @@ public class GetApiData {
     private List<MatchSingle> matchesList = new ArrayList();
     private Champion currentChampion;
     private Summoner currentSummoner;
-    String apiKey = "RGAPI-3ef362f5-90af-4387-8d78-40e37dafed14";
+    String apiKey = "RGAPI-93027d83-26cd-4afe-b3c6-b2401bcfc180";
 
     public void getSummonersData(String name) throws MalformedURLException, IOException {
 
@@ -116,7 +116,7 @@ public class GetApiData {
 
         //load champion data into arraylist
         for (int i = 0; i < championNames.size(); i++) {
-            Champion champ = new Champion("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/" + championNames.get(i) + "_0.jpg", championNames.get(i), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getString("title"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getString("blurb"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getJSONObject("info").getInt("attack"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getJSONObject("info").getInt("defense"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getJSONObject("info").getInt("magic"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getJSONObject("info").getInt("difficulty"));
+            Champion champ = new Champion("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/" + championNames.get(i) + "_0.jpg", championNames.get(i), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getString("title"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getString("blurb"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getJSONObject("info").getInt("attack"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getJSONObject("info").getInt("defense"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getJSONObject("info").getInt("magic"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getJSONObject("info").getInt("difficulty"), championsJson.getJSONObject("data").getJSONObject(championNames.get(i)).getInt("key"));
             championsList.add(champ);
         }
 
@@ -204,6 +204,17 @@ public class GetApiData {
                 Player player = new Player(participants.getJSONObject("stats").getInt("kills"), participantIdentities.getJSONObject("player").getString("summonerName"), participants.getInt("championId"), participants.getInt("teamId"));
                 players.add(player);
             }
+            
+            List<Player> playersTeam1 = new ArrayList();
+            List<Player> playersTeam2 = new ArrayList();
+            
+            for(int q = 0; q < players.size(); q++){
+                if(players.get(q).getTeamId() == 100){
+                    playersTeam1.add(players.get(q));
+                }else{
+                    playersTeam2.add(players.get(q));
+                }
+            }
   
             String teamWin;
             String teamDefeat;
@@ -229,10 +240,35 @@ public class GetApiData {
                 }
             }
             
-            MatchSingle match = new MatchSingle(matchesListDetails.getInt("gameDuration"), matchesListDetails.getString("gameMode"), matchesListDetails.getString("gameType"), teamWin, teamDefeat, killsTeam0, killsTeam1, players);
+            MatchSingle match = new MatchSingle(matchesListDetails.getInt("gameDuration"), matchesListDetails.getString("gameMode"), matchesListDetails.getString("gameType"), teamWin, teamDefeat, killsTeam0, killsTeam1, playersTeam1, playersTeam2);
             
             matchesList.add(match);
         }    
+    }
+    
+    public String getImgUrl(int championId){
+        String imgUrl = "";
+        for(int i = 0; i < championsList.size(); i++){
+            if(championsList.get(i).getKey() == championId){
+                imgUrl = championsList.get(i).getImgUrl();
+                break;
+            }
+        }
+        return imgUrl;
+    }
+    
+    public boolean checkIfTeam1(int id){
+        if(id == 100){
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean checkIfTeam2(int id){
+        if(id == 200){
+            return true;
+        }
+        return false;
     }
 
     public List<Summoner> getSummonersList() {

@@ -53,59 +53,76 @@
         <h:dataTable value="#{GetApiData.matchesList}" var="match" styleClass="table">
             <h:column>
                 <div>
-                    <h:outputText styleClass="font-weight-bold" value="Victory" rendered="#{match.win eq 'team0'}"/>
-                    <h:outputText styleClass="font-weight-bold" value="Defeat" rendered="#{match.defeat eq 'team0'}"/>
-                </div>
-
-                <div>
-                    <h:outputText value="#{match.killsTeam0}"/>
+                    <h:outputText styleClass="font-weight-bold" value="Victory " rendered="#{match.win eq 'team0'}"/>
+                    <h:outputText styleClass="font-weight-bold" value="Defeat " rendered="#{match.defeat eq 'team0'}"/>
+                    
+                    <h:outputText value="#{match.killsTeam0}: "/>
+                    <h:outputText value="#{match.deathsTeam0}"/>
                 </div>
                 
                 <h:dataTable value="#{match.playersTeam1}" var="player">
                     <h:column>
-                        <h:outputText value="#{player.name}: "/>
+                        <f:facet name="header">Name</f:facet> 
+                        <h:outputText value="#{player.name}" rendered="#{match.currentPlayer ne player.name}"/>
+                        <h:outputText styleClass="font-weight-bold" value="#{player.name}" rendered="#{match.currentPlayer eq player.name}"/>
                     </h:column>
                     
                     <h:column>
+                        <f:facet name = "header">Kills</f:facet> 
                         <h:outputText value="#{player.kills} "/>
                     </h:column>
                     
                     <h:column>
-                        <h:graphicImage styleClass="imgStyle" value="#{GetApiData.getImgUrl(player.championId)}"/>
+                        <f:facet name = "header">Deaths</f:facet> 
+                        <h:outputText value="#{player.deaths} "/>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name = "header">Champion Image</f:facet> 
+                        <h:form>
+                            <h:commandLink action="championSingle.xhtml">
+                                <f:actionListener binding="#{GetApiData.setCurrentChampion(GetApiData.getChampionWithKey(player.championId))}"/>
+                                <h:graphicImage styleClass="imgStyle"  value="#{GetApiData.getImgUrl(player.championId)}"/>
+                            </h:commandLink> 
+                        </h:form>
                     </h:column>
                 </h:dataTable>
-            </h:column>
-
-            <h:column>
-                <div>
-                    <h:outputText value="#{match.gameMode}"/>
-                </div>
-                <div>
-                    <h:outputText value="#{match.gameType}"/>
-                </div>
             </h:column>
             
             <h:column>
                 <div>
-                    <h:outputText styleClass="font-weight-bold" value="Victory" rendered="#{match.win eq 'team1'}"/>
-                    <h:outputText styleClass="font-weight-bold" value="Defeat" rendered="#{match.defeat eq 'team1'}"/>
-                </div>
-
-                <div>
-                    <h:outputText value="#{match.killsTeam1}"/>
+                    <h:outputText styleClass="font-weight-bold" value="Victory " rendered="#{match.win eq 'team1'}"/>
+                    <h:outputText styleClass="font-weight-bold" value="Defeat " rendered="#{match.defeat eq 'team1'}"/>
+                    
+                    <h:outputText value="#{match.killsTeam1}: "/>
+                    <h:outputText value="#{match.deathsTeam1}"/>
                 </div>
 
                 <h:dataTable value="#{match.playersTeam2}" var="player">
                     <h:column>
-                        <h:outputText value="#{player.name}: "/>
+                        <f:facet name="header">Name</f:facet> 
+                        <h:outputText value="#{player.name}" rendered="#{match.currentPlayer ne player.name}"/>
+                        <h:outputText styleClass="font-weight-bold" value="#{player.name}" rendered="#{match.currentPlayer eq player.name}"/>
                     </h:column>
                     
                     <h:column>
+                        <f:facet name="header">Kills</f:facet> 
                         <h:outputText value="#{player.kills} "/>
                     </h:column>
                     
                     <h:column>
-                        <h:graphicImage styleClass="imgStyle" value="#{GetApiData.getImgUrl(player.championId)}"/>
+                        <f:facet name = "header">Deaths</f:facet> 
+                        <h:outputText value="#{player.deaths} "/>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name = "header">Champion Image</f:facet> 
+                        <h:form>
+                            <h:commandLink action="championSingle.xhtml">
+                                <f:actionListener binding="#{GetApiData.setCurrentChampion(GetApiData.getChampionWithKey(player.championId))}"/>
+                                <h:graphicImage styleClass="imgStyle"  value="#{GetApiData.getImgUrl(player.championId)}"/>
+                            </h:commandLink> 
+                        </h:form>
                     </h:column>
                 </h:dataTable>
             </h:column>

@@ -11,10 +11,13 @@ public class MatchSingle {
     private String defeat;
     private int killsTeam0;
     private int killsTeam1;
+    private int deathsTeam0;
+    private int deathsTeam1;
     private List<Player> playersTeam1;
     private List<Player> playersTeam2;
+    private String currentPlayer;
 
-    public MatchSingle(int gameDuration, String gameMode, String gameType, String win, String defeat, int killsTeam0, int killsTeam1, List<Player> playersTeam1, List<Player> playersTeam2) {
+    public MatchSingle(int gameDuration, String gameMode, String gameType, String win, String defeat, int killsTeam0, int killsTeam1, int deathsTeam0, int deathsTeam1, List<Player> playersTeam1, List<Player> playersTeam2, String currentPlayer) {
         this.gameDuration = gameDuration;
         this.gameMode = gameMode;
         this.gameType = gameType;
@@ -22,10 +25,13 @@ public class MatchSingle {
         this.defeat = defeat;
         this.killsTeam0 = killsTeam0;
         this.killsTeam1 = killsTeam1;
+        this.deathsTeam0 = deathsTeam0;
+        this.deathsTeam1 = deathsTeam1;
         this.playersTeam1 = playersTeam1;
         this.playersTeam2 = playersTeam2;
+        this.currentPlayer = currentPlayer;
     }
-    
+
     public int getGameDuration() {
         return gameDuration;
     }
@@ -97,6 +103,34 @@ public class MatchSingle {
     public void setPlayersTeam2(List<Player> playersTeam2) {
         this.playersTeam2 = playersTeam2;
     }
+
+    public String getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(String currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public int getDeathsTeam0() {
+        return deathsTeam0;
+    }
+
+    public void setDeathsTeam0(int deathsTeam0) {
+        this.deathsTeam0 = deathsTeam0;
+    }
+
+    public int getDeathsTeam1() {
+        return deathsTeam1;
+    }
+
+    public void setDeathsTeam1(int deathsTeam1) {
+        this.deathsTeam1 = deathsTeam1;
+    }
+    
+    
+    
+    
     
     
     

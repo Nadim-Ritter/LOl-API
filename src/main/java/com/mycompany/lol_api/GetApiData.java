@@ -25,7 +25,7 @@ public class GetApiData {
     private List<MatchSingle> matchesList = new ArrayList();
     private Champion currentChampion;
     private Summoner currentSummoner;
-    String apiKey = "RGAPI-590934eb-d7ca-41de-afd8-65aa571b6085";
+    String apiKey = "RGAPI-125bc27d-35b6-44ef-8852-31d870ec8b8e";
 
     public StringBuffer apiCall(String url) throws IOException {
 
@@ -108,6 +108,15 @@ public class GetApiData {
         }
 
     }
+    
+    public Champion getChampionWithKey(int key){
+        for(int i = 0; i < championsList.size(); i++){
+            if(key == championsList.get(i).getKey()){
+                return championsList.get(i);
+            }
+        }
+        return null;
+    }
 
     public void getMatches(Summoner currentSummoner) throws IOException {
         String accountID = currentSummoner.getAccountId();
@@ -133,7 +142,7 @@ public class GetApiData {
                 JSONObject participants = new JSONObject(matchesListDetails.getJSONArray("participants").get(y).toString());
                 JSONObject participantIdentities = new JSONObject(matchesListDetails.getJSONArray("participantIdentities").get(y).toString());
 
-                Player player = new Player(participants.getJSONObject("stats").getInt("kills"), participantIdentities.getJSONObject("player").getString("summonerName"), participants.getInt("championId"), participants.getInt("teamId"));
+                Player player = new Player(participants.getJSONObject("stats").getInt("kills"), participants.getJSONObject("stats").getInt("deaths"), participantIdentities.getJSONObject("player").getString("summonerName"), participants.getInt("championId"), participants.getInt("teamId"));
                 players.add(player);
             }
 
@@ -163,16 +172,21 @@ public class GetApiData {
 
             int killsTeam0 = 0;
             int killsTeam1 = 0;
+            int deathsTeam0 = 0;
+            int deathsTeam1 = 0;
 
             for (int x = 0; x < players.size(); x++) {
                 if (players.get(x).getTeamId() == 100) {
                     killsTeam0 += players.get(x).getKills();
+                    deathsTeam0 += players.get(x).getDeaths();
                 } else {
                     killsTeam1 += players.get(x).getKills();
+                    deathsTeam1 += players.get(x).getDeaths();
                 }
             }
+            
 
-            MatchSingle match = new MatchSingle(matchesListDetails.getInt("gameDuration"), matchesListDetails.getString("gameMode"), matchesListDetails.getString("gameType"), teamWin, teamDefeat, killsTeam0, killsTeam1, playersTeam1, playersTeam2);
+            MatchSingle match = new MatchSingle(matchesListDetails.getInt("gameDuration"), matchesListDetails.getString("gameMode"), matchesListDetails.getString("gameType"), teamWin, teamDefeat, killsTeam0, killsTeam1, deathsTeam0, deathsTeam1, playersTeam1, playersTeam2, currentSummoner.getName());
 
             matchesList.add(match);
         }
